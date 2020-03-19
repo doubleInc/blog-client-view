@@ -21,13 +21,15 @@ export default AmpersandRouter.extend({
     "login": "login",
     // prettier-ignore
     "blog": "blogMain",
+    // prettier-ignore
+    'blog/posts': 'allPosts',
 
     // prettier-ignore
-    'users/:id': 'userDetail'
+    'blog/posts/:id': 'singlePost'
   },
 
   public: function() {
-    //
+    // add external css+js files for styling
     $("head")
       .append(utils.uiKitCss)
       .append(utils.uiKitJS)
@@ -38,8 +40,8 @@ export default AmpersandRouter.extend({
   },
 
   login: function() {
-    //...
-    let that = this;
+    // reference current route to call from within callbacks
+    let currentRoute = this;
     $("body")
       .html(utils.navBar)
       .append(utils.mainContainer);
@@ -51,6 +53,7 @@ export default AmpersandRouter.extend({
 
       event.preventDefault();
 
+      //graphql query
       fetch({
         query: `query authLogin($email: String!, $password: String!){
             login(email: $email, password: $password) {
@@ -61,17 +64,16 @@ export default AmpersandRouter.extend({
       })
         .then(res => {
           jwt_token = res.data.login.auth_token;
-          //console.log(jwt_token);
+
           if (jwt_token !== null) {
-            console.log(jwt_token);
             localStore.token = jwt_token;
 
-            that.redirectTo("blog");
+            currentRoute.redirectTo("blog");
           }
         })
         .catch(err => {
-          console.log(err);
-          that.redirectTo("");
+          //console.log(err);
+          currentRoute.redirectTo("");
         });
     });
   },
@@ -83,7 +85,44 @@ export default AmpersandRouter.extend({
       .append(utils.blogInterface);
   },
 
-  userDetail: function(id) {
+  allPosts: function() {
+    if (localStore.token !== null) {
+      $("body").html(utils.loggedIn);
+      //get all posts
+      fetch(
+        {
+          query: `query 
+            getAllPosts {
+              posts {
+              id
+              title
+              content
+              created_at
+              }
+            }
+         `
+        },
+        // Header options
+        {
+          Authorization: localStore.token
+        }
+      ).then(res => {
+        res.data.posts.forEach(post => {
+          $("body").append(
+            utils.postCard(post.id, post.title, post.content, post.created_at)
+          );
+        });
+      });
+    } else {
+      // reference current route to call from within callbacks
+      let currentRoute = this;
+      // no token then route to homepage
+      currentRoute.redirectTo("");
+    }
+  },
+
+  // just for testing...
+  singlePost: function(id) {
     $("body").html(id);
   }
 });

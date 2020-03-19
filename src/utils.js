@@ -1,6 +1,6 @@
 /**
  * HTML to feed views
- *
+ * NOTE: I realised I could compose these after about 100 lines of html xD
  */
 
 export default {
@@ -24,9 +24,6 @@ export default {
                     <ul class="uk-nav uk-navbar-dropdown-nav">
                         <li class=""><a href='/'>Home</a></li>
                         <li><a href="#login">Login</a></li>
-                        <li class="uk-nav-header">Header</li>
-                        <li><a href="#">Item</a></li>
-                        <li><a href="#">Item</a></li>
                     </ul>
                 </div>
             </li>
@@ -68,7 +65,7 @@ export default {
                 <a href="/">Logout</a>
             </li>
             <li>
-                <a href="/">All Posts</a>
+                <a href="#blog/posts">All Posts</a>
             </li>
         </ul>
 
@@ -94,5 +91,12 @@ export default {
 
     </fieldset>
     </form>  
-  </div>`
+  </div>`,
+
+  postCard: function(id, title, content, dateCreated) {
+    return `<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+        <h3 class="uk-card-title"><a href="#blog/posts/${id}">${title}</a></h3>
+        <p>${content}</p>
+      </div>`;
+  }
 };
