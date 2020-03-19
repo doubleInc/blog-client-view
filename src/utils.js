@@ -1,5 +1,5 @@
 /**
- *
+ * HTML to feed views
  *
  */
 
@@ -58,5 +58,41 @@ export default {
             </form>
         
         </div>
-    </div>`
+    </div>`,
+
+  loggedIn: `<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-left">
+
+        <ul class="uk-navbar-nav">
+            <li>
+                <a href="/">Logout</a>
+            </li>
+            <li>
+                <a href="/">All Posts</a>
+            </li>
+        </ul>
+
+    </div>
+    </nav>`,
+
+  blogInterface: `<div class="uk-flex uk-flex-center uk-margin-top">
+  <form>
+  <fieldset class="uk-fieldset">
+
+      <legend class="uk-legend">New blog Post: </legend>
+
+      <div class="uk-margin">
+          <input class="uk-input" type="text" placeholder="Blog Title" id="blogTitle">
+      </div>
+
+      <div class="uk-margin">
+          <textarea class="uk-textarea" rows="5" placeholder="..." id="blogContent"></textarea>
+      </div>
+
+      <button class="uk-button uk-button-default" id="addPost">Submit</button>
+            
+
+    </fieldset>
+    </form>  
+  </div>`
 };

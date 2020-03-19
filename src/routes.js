@@ -1,19 +1,29 @@
-import AmpersandRouter from "ampersand-router";
-import $ from "jquery";
-import utils from "./utils";
-import authUser from "./data-fetching";
-import { createApolloFetch } from "apollo-fetch";
+import AmpersandRouter from "ampersand-router"; // router
+import $ from "jquery"; // DOM updates
+import utils from "./utils"; // mostly stored HTML to feed views
+import { createApolloFetch } from "apollo-fetch"; // apollo's fetch method to query graphql server
 
+// location of graphql server
 const fetch = createApolloFetch({
   uri: "http://localhost:4000/"
 });
+
+// to hold app values, hacky method to pass values between views
+var localStore = {
+  token: null
+};
 
 export default AmpersandRouter.extend({
   routes: {
     // matching url to handler
     "": "public",
     // prettier-ignore
-    "login": "login"
+    "login": "login",
+    // prettier-ignore
+    "blog": "blogMain",
+
+    // prettier-ignore
+    'users/:id': 'userDetail'
   },
 
   public: function() {
@@ -54,7 +64,9 @@ export default AmpersandRouter.extend({
           //console.log(jwt_token);
           if (jwt_token !== null) {
             console.log(jwt_token);
-            //that.redirectTo("");
+            localStore.token = jwt_token;
+
+            that.redirectTo("blog");
           }
         })
         .catch(err => {
@@ -62,7 +74,16 @@ export default AmpersandRouter.extend({
           that.redirectTo("");
         });
     });
+  },
 
-    //this.redirectTo("");
+  blogMain: function() {
+    //...
+    $("body")
+      .html(utils.loggedIn)
+      .append(utils.blogInterface);
+  },
+
+  userDetail: function(id) {
+    $("body").html(id);
   }
 });
