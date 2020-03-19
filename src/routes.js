@@ -79,13 +79,46 @@ export default AmpersandRouter.extend({
   },
 
   blogMain: function() {
+    let currentRoute = this;
     //...
     $("body")
       .html(utils.loggedIn)
       .append(utils.blogInterface);
+
+    // catch blog post inputs
+    $("#addPost").click(function(event) {
+      const title = $("#blogTitle").val();
+      const content = $("#blogContent").val();
+
+      event.preventDefault();
+
+      fetch(
+        {
+          query: `mutation 
+          addPost($title: String!, $content: String!) {
+            post(title: $title, content: $content) {
+              id
+            }
+          }
+         `,
+          variables: { title: title, content: content }
+        },
+
+        // Header options
+        {
+          Authorization: localStore.token
+        }
+      ).then(res => {
+        //currentRoute.redirectTo("blog/posts");
+        currentRoute.reload();
+      });
+    });
   },
 
   allPosts: function() {
+    // reference current route to call from within callbacks
+    let currentRoute = this;
+
     if (localStore.token !== null) {
       $("body").html(utils.loggedIn);
       //get all posts
@@ -114,8 +147,6 @@ export default AmpersandRouter.extend({
         });
       });
     } else {
-      // reference current route to call from within callbacks
-      let currentRoute = this;
       // no token then route to homepage
       currentRoute.redirectTo("");
     }
