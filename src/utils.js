@@ -30,7 +30,7 @@ export default {
         </ul>
 
     </div>
-    <div class="uk-navbar-center"><h3>CRUD Blog</h3></div>
+    <div class="uk-navbar-center"><h3 class="uk-text-light">CRUD Blog V2.0</h3></div>
     </nav>`,
 
   mainContainer: `
@@ -62,7 +62,7 @@ export default {
 
         <ul class="uk-navbar-nav">
             <li>
-                <a href="/">Logout</a>
+                <a href="#logout">Logout</a>
             </li>
             <li>
                 <a href="#blog/posts">All Posts</a>
@@ -86,12 +86,30 @@ export default {
           <textarea class="uk-textarea" rows="5" placeholder="..." id="blogContent"></textarea>
       </div>
 
-      <button class="uk-button uk-button-default" id="addPost">Submit</button>
+      <button class="uk-button uk-button-secondary" id="addPost">Submit</button>
             
 
     </fieldset>
     </form>  
   </div>`,
+
+  rootPageSection: `<div class="uk-section uk-section-default container uk-margin-top">
+  <div class="uk-container">
+
+      <h3>A Blogging Platform</h3>
+      <div class="uk-flex uk-flex-center">
+          <div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          </div>
+          <div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          </div>
+          <div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          </div>
+        </div>
+    </div>
+    </div>`,
 
   postCard: function(id, title, content, dateCreated) {
     return `<div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">

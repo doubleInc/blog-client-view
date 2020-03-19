@@ -23,11 +23,14 @@ export default AmpersandRouter.extend({
     "blog": "blogMain",
     // prettier-ignore
     'blog/posts': 'allPosts',
+    // prettier-ignore
+    'logout': 'logout',
 
     // prettier-ignore
     'blog/posts/:id': 'singlePost'
   },
 
+  // root page
   public: function() {
     // add external css+js files for styling
     $("head")
@@ -36,7 +39,9 @@ export default AmpersandRouter.extend({
       .append(utils.uiKitIcons);
 
     //...
-    $("body").html(utils.navBar);
+    $("body")
+      .html(utils.navBar)
+      .append(utils.rootPageSection);
   },
 
   login: function() {
@@ -72,7 +77,7 @@ export default AmpersandRouter.extend({
           }
         })
         .catch(err => {
-          //console.log(err);
+          // not doing anything error for now ...
           currentRoute.redirectTo("");
         });
     });
@@ -150,6 +155,13 @@ export default AmpersandRouter.extend({
       // no token then route to homepage
       currentRoute.redirectTo("");
     }
+  },
+
+  // logout
+  logout: function() {
+    // remove jwt token
+    localStore.token = null;
+    this.redirectTo("");
   },
 
   // just for testing...

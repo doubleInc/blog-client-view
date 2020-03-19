@@ -1,8 +1,8 @@
 import Router from "./routes";
-import app from "ampersand-app";
+import app from "ampersand-app"; // app global to store collections and models
 import "./style.css";
 
-// not really needed...
+// before ampersand app...
 window.app = app;
 
 app.extend({

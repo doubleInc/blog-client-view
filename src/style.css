@@ -2,3 +2,9 @@ body {
   height: 100vh;
   background-color: seashell;
 }
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
