@@ -1,7 +1,6 @@
 import Router from "./routes";
 import app from "ampersand-app";
-
-// matching url to handler
+import "./style.css";
 
 window.app = app;
 

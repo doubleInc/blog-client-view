@@ -39,22 +39,22 @@ export default {
   mainContainer: `
     <div class="uk-flex uk-flex-center uk-margin-top">
         <div class="uk-card uk-card-default uk-card-body uk-margin-left">
-            <form>
+            <form action="">
 
             <div class="uk-margin">
                 <div class="uk-inline">
                     <span class="uk-form-icon" uk-icon="icon: user"></span>
-                    <input class="uk-input" type="text">
+                    <input class="uk-input" type="text" id="username">
                 </div>
             </div>
         
             <div class="uk-margin">
                 <div class="uk-inline">
                     <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-                    <input class="uk-input" type="text">
+                    <input class="uk-input" type="password" id="password">
                 </div>
             </div>
-            <button class="uk-button uk-button-default">Login</button>
+            <button class="uk-button uk-button-default" id="loginBtn">Login</button>
             </form>
         
         </div>
